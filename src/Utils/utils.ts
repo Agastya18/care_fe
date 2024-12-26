@@ -217,7 +217,11 @@ export const formatCurrency = (price: number) =>
     currency: "INR",
   });
 
-export const isUserOnline = (user: { last_login: DateLike }) => {
+export const isUserOnline = (user: {
+  last_login: DateLike;
+  isAuthenticated?: boolean;
+}) => {
+  if (user.isAuthenticated) return true;
   return user.last_login
     ? dayjs().subtract(5, "minutes").isBefore(user.last_login)
     : false;
